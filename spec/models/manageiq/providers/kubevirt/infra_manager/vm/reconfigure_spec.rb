@@ -8,6 +8,11 @@ describe ManageIQ::Providers::Kubevirt::InfraManager::Vm::Reconfigure do
       it "is reconfigurable" do
         expect(vm.reconfigurable?).to be_truthy
       end
+
+      context "that has in instancetype" do
+        let(:flavor) { FactoryBot.create(:flavor_kubevirt, :ext_management_system => ems) }
+        let(:vm)     { FactoryBot.create(:vm_kubevirt, :ext_management_system => ems, :flavor => flavor) }
+      end
     end
 
     context "with an archived vm" do

@@ -2,7 +2,9 @@ module ManageIQ::Providers::Kubevirt::InfraManager::Vm::Reconfigure
   extend ActiveSupport::Concern
 
   def reconfigurable?
-    active?
+    # Only VMs that are active on an ext_management_system can be reconfigured
+    # Disable instance_type based VMs for reconfigure until that is properly implemented
+    active? && flavor.nil?
   end
 
   def max_vcpus
